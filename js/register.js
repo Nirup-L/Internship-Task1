@@ -53,8 +53,8 @@ $("#sbt-btn").click(function () {
         url: '../php/register.php',
         data: { mail: this.id, password: this.confirmpass, fname: this.fname, lname: this.lname },
         success: function (data) {
-            console.log(data);
-            window.location.href = '../profile.html'
+            localStorage.setItem('userEmail', data);
+            window.location.href = '../profile.html';
         }
     });
 });

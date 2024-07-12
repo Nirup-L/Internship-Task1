@@ -16,9 +16,10 @@ class UserManager {
             '_id'=> $id,
             'fname'=> $fname,
             'lname'=> $lname,
-            'age'=> '-',
+            'age'=> 0,
             'gender'=>'-',
-            'mobile'=>'-'
+            'mobile'=>0,
+            'dob'=>'-'
         );
         $this->mongoCollection->insertOne($document);
     }
@@ -34,7 +35,7 @@ class UserManager {
         $this->insertUserInMongoDB($id, $fname, $lname);
         $this->insertUserInMySQL($id, $password);
         
-        echo "Data inserted successfully";
+        echo $id;
     }
 }
 

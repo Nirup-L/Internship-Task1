@@ -32,7 +32,7 @@ header {
 }
 
 td {
-  width: 20rem;
+  width: 10rem;
   height: 3rem;
 }
 
@@ -55,4 +55,29 @@ table {
   font-size: 20px;
   float: inline-end;
   cursor: pointer;
+}
+
+.data {
+  padding: 5px 5px 8px 5px;
+  margin-left: 1.2rem;
+  margin-right: 1.2rem;
+  border-radius: 5px;
+}
+
+.data:hover, .data:focus {
+  background-color: #e6e6e6;
+  transition-duration: 0.5;
+}
+
+.unchangable {
+  padding: 5px 5px 8px 5px;
+  margin-left: 1.2rem;
+  margin-right: 1.2rem;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.status {
+  font-size: 12px;
+  color: red;
 }

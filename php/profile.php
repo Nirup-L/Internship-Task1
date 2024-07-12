@@ -18,7 +18,8 @@ $user = $collection->findOne(['_id' => $id], [
         'mobile' => 1,
         '_id'=> 1,
         'fname' => 1,
-        'lname' => 1
+        'lname' => 1,
+        'dob'=>1
     ]
 ]);
 

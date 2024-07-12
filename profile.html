@@ -16,24 +16,52 @@
         <table id="display" style="width:100%">
             <tr>
                 <th>Firstname:</th>
-                <td id="fname"></td>
+                <td>
+                    <div id="fname" class="data" contenteditable="true"></div>
+                </td>
                 <th>Lastname:</th>
-                <td id="lname"></td>
+                <td>
+                    <div id="lname" class="data" contenteditable="true"></div>
+                </td>
             </tr>
             <tr>
                 <th>Age:</th>
-                <td id="age"></td>
+                <td>
+                    <div id="age" class="unchangable"></div>
+                </td>
                 <th>Gender:</th>
-                <td id="gender"></td>
+                <td>
+                    <div>
+                        <select id="gender" class="data">
+                            <option value="-" style="color: rgb(165, 165, 165);">Select</option>
+                            <option value="m">Male</option>
+                            <option value="f">Female</option>
+                            <option value="na">Doesn't want to specify</option>
+                        </select>
+                    </div>
+                </td>
             </tr>
             <tr>
                 <th>Mailid:</th>
-                <td id="mailid"></td>
+                <td>
+                    <div id="mailid" class="unchangable"></div>
+                </td>
                 <th>Mobile No:</th>
-                <td id="mobile"></td>
+                <td>
+                    <div id="mobile" class="data" contenteditable="true"></div>
+                </td>
+            </tr>
+            <tr>
+                <th>DOB:</th>
+                <td>
+                    <input type="date" class="data" id="dob">
+                </td>
+                <td>
+                    <div class="status" id="status"></div>
+                </td>
             </tr>
         </table>
-        <button id="edit" class="edit">Edit Details</button>
+        <button id="edit-btn" class="edit">Save Changes</button>
     </div>
     <script src="js/profile.js"></script>
 </body>
