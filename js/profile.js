@@ -42,6 +42,10 @@ $(document).ready(function () {
                 $('#status').text('Mobile number must be exactly 10 digits long.').css('color', 'red');
                 return;
             }
+            if (age < 12) {
+                $('#status').text('user must be atleast 12 years old').css('color', 'red');
+                return;
+            }
 
             $.ajax({
                 type: 'POST',
