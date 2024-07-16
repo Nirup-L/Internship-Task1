@@ -1,7 +1,6 @@
 $(document).ready(function () {
     const userEmail = localStorage.getItem('userEmail');
     if (userEmail) {
-        // Fetch user information
         $.ajax({
             url: '../php/profile.php',
             type: 'POST',
@@ -25,7 +24,6 @@ $(document).ready(function () {
             }
         });
 
-        // Update user information
         $('#edit-btn').click(function () {
             $('#status').text(" ");
             const fname = $('#fname').text();
@@ -36,8 +34,6 @@ $(document).ready(function () {
             const age = curryear - year;
             const gender = $('#gender').val();
             const mobile = $('#mobile').text();
-
-            // Validate mobile number length
             if (mobile.length !== 10) {
                 $('#status').text('Mobile number must be exactly 10 digits long.').css('color', 'red');
                 return;
@@ -64,7 +60,6 @@ $(document).ready(function () {
                     if (data.error) {
                         console.log(data.error);
                     } else {
-                        // Update the DOM elements immediately
                         $('#fname').text(data.fname);
                         $('#lname').text(data.lname);
                         $('#age').text(data.age);

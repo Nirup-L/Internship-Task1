@@ -2,15 +2,7 @@
 include 'mongodb.php';
 
 $id = $_POST['id'];
-
-// Assuming you have established the MongoDB client and selected the database in mongodb.php
-// For example:
-// $client = new MongoDB\Client("mongodb://localhost:27017");
-// $db = $client->mydatabase;
-
-$collection = $db->userdata; // Replace 'mycollection' with your actual collection name
-
-// Fetch the user document by id
+$collection = $db->userdata;
 $user = $collection->findOne(['_id' => $id], [
     'projection' => [
         'age' => 1,
