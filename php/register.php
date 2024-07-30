@@ -11,7 +11,7 @@ class UserManager {
         $this->mysqlConnection = $mysqlConnection;
     }
 
-    public function insertUserInMongoDB($id, $fname, $lname) {
+    public function insertInMongoDB($id, $fname, $lname) {
         $document = array( 
             '_id'=> $id,
             'fname'=> $fname,
@@ -24,16 +24,16 @@ class UserManager {
         $this->mongoCollection->insertOne($document);
     }
 
-    public function insertUserInMySQL($id, $password) {
+    public function insertInMySQL($id, $password) {
         $stmt = $this->mysqlConnection->prepare("INSERT INTO Myuser(PersonId, PersonPassword) VALUES (?, ?)");
         $stmt->bind_param("ss", $id, $password);
         $stmt->execute();
         $stmt->close();
     }
 
-    public function registerUser($id, $password, $fname, $lname) {
-        $this->insertUserInMongoDB($id, $fname, $lname);
-        $this->insertUserInMySQL($id, $password);
+    public function register($id, $password, $fname, $lname) {
+        $this->insertInMongoDB($id, $fname, $lname);
+        $this->insertInMySQL($id, $password);
         
         echo $id;
     }
@@ -45,6 +45,6 @@ $id = $_POST['mail'];
 $password = $_POST['password'];
 $fname = $_POST['fname'];
 $lname = $_POST['lname'];
-$userManager->registerUser($id, $password, $fname, $lname);
+$userManager->register($id, $password, $fname, $lname);
 
 $con->close();
