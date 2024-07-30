@@ -39,4 +39,4 @@ try {
 }
 
 echo json_encode($response);
-?>
+

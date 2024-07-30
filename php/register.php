@@ -48,4 +48,3 @@ $lname = $_POST['lname'];
 $userManager->registerUser($id, $password, $fname, $lname);
 
 $con->close();
-?>

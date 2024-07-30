@@ -1,14 +1,16 @@
 $(document).ready(function () {
     const userEmail = localStorage.getItem('userEmail');
+    const token = localStorage.getItem('session_token');
     if (userEmail) {
         $.ajax({
             url: '../php/profile.php',
             type: 'POST',
-            data: { id: userEmail },
+            data: { id: userEmail, token: token },
             success: function (data) {
                 data = JSON.parse(data);
                 if (data.error) {
                     console.log(data.error);
+                    window.location.href = "../login.html";
                 } else {
                     $('#fname').text(data.fname);
                     $('#lname').text(data.lname);

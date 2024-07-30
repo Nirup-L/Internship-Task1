@@ -1,11 +1,14 @@
 <?php
+require '../vendor/autoload.php';
 include 'db.php';
 
 class User {
     private $con;
+    private $redis;
     
-    public function __construct($dbConnection) {
+    public function __construct($dbConnection,$redisConnection) {
         $this->con = $dbConnection;
+        $this->redis = $redisConnection;
     }
 
     public function authenticate($email, $password) {
@@ -20,24 +23,41 @@ class User {
                 $stmt->fetch();
                 if ($password === $stored_password) {
                     $stmt->close();
-                    return true;
+                    return $this->generateSessionToken($email);
                 }
             }
             $stmt->close();
         }
         return false;
     }
+
+    private function generateSessionToken($userid){
+        $sessionToken = bin2hex(random_bytes(32));
+        $this->redis->set("session:$sessionToken", $userid);
+        $this->redis->expire("session:$sessionToken", 150);
+        return [
+            'status' => 'success',
+            'token' => $sessionToken
+        ];
+    }
 }
+
+$redis = new Predis\Client([
+    'scheme' => 'tcp',
+    'host' => '127.0.0.1',
+    'port' => 6379,
+]);
 
 // Get the email and password from POST request
-$email = isset($_POST['mail']) ? $_POST['mail'] : '';
-$password = isset($_POST['password']) ? $_POST['password'] : '';
+$email = $_POST['mail'];
+$password = $_POST['password'];
 
 // Instantiate the User class and call the authenticate method
-$user = new User($con);
-if ($user->authenticate($email, $password)) {
-    echo 'true';
+$user = new User($con, $redis);
+$response = $user->authenticate($email, $password);
+
+if ($response) {
+    echo json_encode($response);
 } else {
-    echo 'false';
+    echo json_encode(['status' => 'error', 'message' => 'Invalid']);
 }
-?>

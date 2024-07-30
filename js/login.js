@@ -6,13 +6,18 @@ form.addEventListener('submit', function (event) {
 $("#sbt-btn").click(function () {
     const email = $("#mail").val();
     const password = $("#password").val();
-    console.log(email, password);
+    let data = `mail=${email}&password=${password}`;
+    console.log(data);
     $.ajax({
         type: 'POST',
         url: '../php/login.php',
-        data: { mail: email, password: password },
-        success: function (data) {
-            if (data == 'true') {
+        data: data,
+        success: function (response) {
+            const data = JSON.parse(response);
+            if (data.status === 'success') {
+                const token = data.token;
+                console.log(token);
+                localStorage.setItem('session_token', token);
                 localStorage.setItem('userEmail', email);
                 window.location.href = '../profile.html';
             } else {
