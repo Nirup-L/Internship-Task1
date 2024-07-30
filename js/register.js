@@ -21,11 +21,7 @@ $("#sbt-btn").click(function () {
     this.id = $("#mail").val();
     this.setpass = $("#setpassword").val();
     this.confirmpass = $("#confirmpassword").val();
-
-    // Clear any previous password status message
     document.getElementById('password-status').innerHTML = "";
-
-    // Validation checks
     if (!this.fname || !this.lname || !this.id || !this.setpass || !this.confirmpass) {
         document.getElementById('password-status').innerHTML = "All fields must be filled.";
         return;
@@ -35,7 +31,6 @@ $("#sbt-btn").click(function () {
         document.getElementById('password-status').innerHTML = "Passwords do not match.";
         return;
     }
-
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
     if (!passwordRegex.test(this.setpass)) {
         document.getElementById('password-status').innerHTML = "Password must contain at least:<br> one special character<br>one uppercase letter<br>one lowercase letter<br>one digit<br>and be at least 8 characters long.";
@@ -46,15 +41,13 @@ $("#sbt-btn").click(function () {
         document.getElementById('mail-status').innerHTML = "Please enter a valid email.";
         return;
     }
-
-    // Proceed with registration
     $.ajax({
         type: 'POST',
         url: '../php/register.php',
         data: { mail: this.id, password: this.confirmpass, fname: this.fname, lname: this.lname },
         success: function (data) {
             localStorage.setItem('userEmail', data);
-            window.location.href = '../profile.html';
+            window.location.href = '../login.html';
         }
     });
 });
@@ -81,8 +74,6 @@ function validateEmail() {
     const email = $("#mail").val();
     const mailStatus = document.getElementById('mail-status');
     mailStatus.innerHTML = "";
-
-    // Check if email is valid and not empty
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (email === "") {
         mailStatus.innerHTML = "Email is required.";

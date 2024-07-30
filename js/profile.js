@@ -1,24 +1,23 @@
 $(document).ready(function () {
-    const userEmail = localStorage.getItem('userEmail');
     const token = localStorage.getItem('session_token');
-    if (userEmail) {
+    if (token) {
         $.ajax({
             url: '../php/profile.php',
             type: 'POST',
-            data: { id: userEmail, token: token },
-            success: function (data) {
-                data = JSON.parse(data);
-                if (data.error) {
-                    console.log(data.error);
+            data: { token: token },
+            success: function (response) {
+                response = JSON.parse(response);
+                if (response.error) {
+                    console.log(response.error);
                     window.location.href = "../login.html";
                 } else {
-                    $('#fname').text(data.fname);
-                    $('#lname').text(data.lname);
-                    $('#age').text(data.age);
-                    $('#gender').val(data.gender);
-                    $('#mailid').text(data._id);
-                    $('#mobile').text(data.mobile);
-                    $('#dob').val(data.dob);
+                    $('#fname').text(response.data.fname);
+                    $('#lname').text(response.data.lname);
+                    $('#age').text(response.data.age);
+                    $('#gender').val(response.data.gender);
+                    $('#mailid').text(response.data._id);
+                    $('#mobile').text(response.data.mobile);
+                    $('#dob').val(response.data.dob);
                 }
             },
             error: function () {
@@ -44,7 +43,7 @@ $(document).ready(function () {
                 $('#status').text('user must be atleast 12 years old').css('color', 'red');
                 return;
             }
-
+            const userEmail = localStorage.getItem('userEmail');
             $.ajax({
                 type: 'POST',
                 url: '../php/update.php',
@@ -62,6 +61,7 @@ $(document).ready(function () {
                     if (data.error) {
                         console.log(data.error);
                     } else {
+                        console.log(data);
                         $('#fname').text(data.fname);
                         $('#lname').text(data.lname);
                         $('#age').text(data.age);
