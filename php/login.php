@@ -1,11 +1,9 @@
 <?php
-require '../vendor/autoload.php';
 include 'db.php';
-
+include 'redis.php';
 class User {
     private $con;
     private $redis;
-    
     public function __construct($dbConnection,$redisConnection) {
         $this->con = $dbConnection;
         $this->redis = $redisConnection;
@@ -41,12 +39,6 @@ class User {
         ];
     }
 }
-
-$redis = new Predis\Client([
-    'scheme' => 'tcp',
-    'host' => '127.0.0.1',
-    'port' => 6379,
-]);
 
 // Get the email and password from POST request
 $email = $_POST['mail'];

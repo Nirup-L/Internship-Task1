@@ -63,7 +63,6 @@ class UserManager {
 }
 
 $userManager = new UserManager($db->userdata, $con);
-
 $id = $_POST['mail'];
 $password = $_POST['password'];
 $fname = $_POST['fname'];

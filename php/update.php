@@ -1,6 +1,6 @@
 <?php
 include 'mongodb.php';
-include 'redis.php'; // Include Redis connection
+include 'redis.php';
 
 $id = $_POST['id'];
 $fname = $_POST['fname'];
@@ -37,7 +37,7 @@ try {
 
         // Update the cached data in Redis
         $userCacheKey = "user:$id";
-        $redis->set($userCacheKey, json_encode($response), 'EX', 150); // Update cache with new data
+        $redis->set($userCacheKey, json_encode($response), 'EX', 150);
     } else {
         $response = ['error' => 'No documents matched the query.'];
     }

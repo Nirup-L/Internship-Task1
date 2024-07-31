@@ -18,7 +18,6 @@ $("#sbt-btn").click(function () {
                 const token = data.token;
                 console.log(token);
                 localStorage.setItem('session_token', token);
-                localStorage.setItem('userEmail', email);
                 window.location.href = '../profile.html';
             } else {
                 document.getElementById('result').innerHTML = "invalid UserId or Password";

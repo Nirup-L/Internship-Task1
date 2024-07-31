@@ -1,12 +1,9 @@
 <?php
 include 'mongodb.php';
 include 'redis.php';
-
 require '../vendor/autoload.php';
-
 $token = $_POST['token'];
 $id = $redis->get("session:$token");
-
 if ($id) {
     $userCacheKey = "user:$id";
     $cachedUser = $redis->get($userCacheKey);
@@ -26,7 +23,6 @@ if ($id) {
                 'dob' => 1
             ]
         ]);
-
         if ($user) {
             // Convert user data to JSON and store in Redis cache
             $userData = json_encode($user);
