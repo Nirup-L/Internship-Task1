@@ -12,7 +12,8 @@ if ($id) {
         echo json_encode(['source' => 'cache', 'data' => json_decode($cachedUser, true)]);
     } else {
         $collection = $db->userdata;
-        $user = $collection->findOne(['_id' => $id], [
+        $user = $collection->findOne(['_id' => $id], 
+        [
             'projection' => [
                 'age' => 1,
                 'gender' => 1,
@@ -24,9 +25,8 @@ if ($id) {
             ]
         ]);
         if ($user) {
-            // Convert user data to JSON and store in Redis cache
             $userData = json_encode($user);
-            $redis->set($userCacheKey, $userData, 'EX', 150); // Cache for 1 hour
+            $redis->set($userCacheKey, $userData,'EX', 150);
             echo json_encode(['source' => 'database', 'data' => $user]);
         } else {
             echo json_encode(['error' => 'User not found']);

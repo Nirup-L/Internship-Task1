@@ -1,8 +1,8 @@
 <?php
 include 'mongodb.php';
 include 'redis.php';
-
-$id = $_POST['id'];
+$token = $_POST['token'];
+$id = $redis->get("session:$token");
 $fname = $_POST['fname'];
 $lname = $_POST['lname'];
 $dob = $_POST['dob'];
@@ -34,8 +34,6 @@ try {
             'gender' => $gender,
             'mobile' => $mobile
         ];
-
-        // Update the cached data in Redis
         $userCacheKey = "user:$id";
         $redis->set($userCacheKey, json_encode($response), 'EX', 150);
     } else {

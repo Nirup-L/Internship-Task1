@@ -39,12 +39,8 @@ class User {
         ];
     }
 }
-
-// Get the email and password from POST request
 $email = $_POST['mail'];
 $password = $_POST['password'];
-
-// Instantiate the User class and call the authenticate method
 $user = new User($con, $redis);
 $response = $user->authenticate($email, $password);
 

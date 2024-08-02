@@ -52,13 +52,13 @@ class UserManager {
 
     public function register($id, $password, $fname, $lname) {
         if ($this->userExists($id)) {
-            return false; // User already exists
+            return false;
         }
 
         $this->insertInMongoDB($id, $fname, $lname);
         $this->insertInMySQL($id, $password);
         
-        return true; // Registration successful
+        return true;
     }
 }
 

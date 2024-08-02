@@ -43,12 +43,12 @@ $(document).ready(function () {
                 $('#status').text('user must be atleast 12 years old').css('color', 'red');
                 return;
             }
-            const userEmail = localStorage.getItem('userEmail');
+            const token = localStorage.getItem('session_token');
             $.ajax({
                 type: 'POST',
                 url: '../php/update.php',
                 data: {
-                    id: userEmail,
+                    token: token,
                     fname: fname,
                     lname: lname,
                     dob: dob,
